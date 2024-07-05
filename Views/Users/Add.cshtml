@@ -1,0 +1,28 @@
+﻿@model User
+
+@{
+    ViewBag.Title = "Pagina de Agregar Usuarios";
+}
+
+@using (Html.BeginForm("AddProcess", "Users", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { })
+        @Html.EditorFor(m => m.Email, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { })
+        @Html.EditorFor(m => m.Name, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.LastName, new { })
+        @Html.EditorFor(m => m.LastName, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { })
+        @Html.EditorFor(m => m.Password, new { @class = "form-control" })
+    </div>
+    <input type="submit" value="Submit" class="btn btn-default" />
+}
+
+

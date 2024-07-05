@@ -1,0 +1,19 @@
+﻿@model UserViewBag
+
+@{
+    ViewBag.Title = $"Listado de {Model.Title}";
+    Layout = "_Layout";
+}
+
+<h2>Listado de Usuarios</h2>
+@if (Model.UserCollection.Count == 0)
+{
+    <p>No users available.</p>
+}
+else
+{
+    @foreach (var user in Model.UserCollection)
+    {
+        @user.FullName @user.Password <br/>
+    }   
+}
