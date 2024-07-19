@@ -1,11 +1,8 @@
 ﻿@model User
 
-@{
-    ViewBag.Title = "Pagina de Agregar Usuarios";
-}
-
-@using (Html.BeginForm("Add", "Users", FormMethod.Post))
+@using (Html.BeginForm("Edit", "Users", FormMethod.Post))
 {
+    
     <div class="form-group">
         @Html.LabelFor(m => m.Email, new { })
         @Html.EditorFor(m => m.Email, new { @class = "form-control" })
@@ -24,5 +21,3 @@
     </div>
     <input type="submit" value="Submit" class="btn btn-default" />
 }
-
-

@@ -3,40 +3,19 @@ using Test2.Models;
 
 namespace Test2.Controllers;
 
-//son 3 controlers
-//3 modelos -> 2 o 3 propiedades 
-//3 vistas
-// en cada vista devolves 1(osea no colection) modelo y mostramos los datos.
-
 public class UsersController : Controller
 {
     private static List<User> _userCollection = new List<User>();
-    //public static List<User> Users => _userCollection;// get {return _userCollection}
-    public static List<User> Users
-    {
-        get { return _userCollection; }
-    }
+    private static int _autoincrement = 0;
 
     public IActionResult Login()
     {
-        //var uc = new UsersController();
-        //uc.Cantidad = 5;
-        //Console.WriteLine(uc.Cantidad);
-        //UsersController.Users.Add(new User(){});
         return View();
     }
-
-    // /users/index || /users/
+    
     public IActionResult Index() // <- este metodo se esta de alguna forma llamando
     {
-        var vb = new UserViewBag
-        {
-            UserCollection = _userCollection
-        };
-        
-        Console.WriteLine(_userCollection.Count);
-
-        return View(vb);
+        return View(_userCollection);
     }
 
     //Get
@@ -49,14 +28,52 @@ public class UsersController : Controller
 
     //Procesar 
     [HttpPost]
-    public IActionResult AddProcess(User user)
+    public IActionResult Add(User user)
     {
-        _userCollection.Add(user);
+        user.Id = _autoincrement + 1;//Generalo como quieras, pero esto es bastante valido
+        _userCollection.Add(user); //<-Me tiene que agregar un indice
+
         return RedirectToAction("Index");
     }
 
+    [HttpGet]
+    public IActionResult Edit(int id)
+    {
+        User? user = null;
+        //Busco el usuario
+        foreach (var u in _userCollection)
+        {
+            if (u.Id == id)
+            {
+                user = u;
+            }
+        }
+
+        if (user == null)
+        {
+           //
+        }
+        
+        //Y lo mando para el form
+        return View(user);
+    }
+
+    [HttpPost]
+    public IActionResult Edit(User user)
+    {
+        //Recibo usuario del form
+        //Lo busco en la colecction
+        //Y lo edito en la coleccion con esos datos que me viene
+        return RedirectToAction("Index");
+    }
+
+    //Recibir por parametro id
     public IActionResult Delete()
     {
+        //Buscar con ese id y remover
+        //Donde este ese id ese indice lo remuevo 
+        _userCollection.RemoveAt(1);
+        //Fijate si te sale el delete antes que el edit
         return View();
     }
 }
